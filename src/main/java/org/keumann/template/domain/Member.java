@@ -3,13 +3,12 @@ package org.keumann.template.domain;
 import lombok.*;
 import org.keumann.template.admin.member.dto.MemberFormDto;
 import org.keumann.template.constant.Role;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name="member")
-@Getter @Setter
+@Getter
 @ToString
 @Builder
 @AllArgsConstructor

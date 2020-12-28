@@ -7,7 +7,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties("restemplate")
 public class RestfulProperties {
 
-    private int  readTimeout;
+    private int readTimeout;
 
     private int connectTimeout;
 

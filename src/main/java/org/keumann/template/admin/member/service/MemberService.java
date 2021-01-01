@@ -2,7 +2,11 @@ package org.keumann.template.admin.member.service;
 
 import lombok.RequiredArgsConstructor;
 import org.keumann.template.domain.Member;
+import org.keumann.template.domain.MemberRole;
+import org.keumann.template.exception.BusinessException;
+import org.keumann.template.member.dto.MemberDto;
 import org.keumann.template.repository.MemberRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -11,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.Arrays;
 import java.util.Optional;
 
 @Service
@@ -40,7 +45,38 @@ public class MemberService implements UserDetailsService{
         return User.builder()
                 .username(member.getEmail())
                 .password(member.getPassword())
-                .roles(member.getRole().toString())
+                .roles(member.getRoles().toString())
                 .build();
     }
+
+    private void validateCreateMember(MemberDto memberDto){
+        validateUserId(memberDto);
+    }
+
+    private void validateUserId(MemberDto memberDto){
+        Member member = memberRepository.findMemberByEmail(memberDto.getEmail());
+
+        if(member != null)
+            throw new BusinessException("이미 가입된 회원아이디입니다.", HttpStatus.CONFLICT.value());
+    }
+
+    private Member enrollKakaoMember(MemberDto memberDto){
+        MemberRole memberRole = new MemberRole();
+        memberRole.setRoleName("USER");
+        memberDto.setRoles(Arrays.asList(memberRole));
+        return memberRepository.save(MemberDto.of(memberDto));
+    }
+
+    public Member createMember(MemberDto memberDto) throws BusinessException{
+        this.validateCreateMember(memberDto);
+        Member member = null;
+        member = enrollKakaoMember(memberDto);
+        return member;
+    }
+
+    @Transactional(readOnly = true)
+    public Member getMember(String email) throws RuntimeException {
+        return memberRepository.findMemberByEmail(email);
+    }
+
 }

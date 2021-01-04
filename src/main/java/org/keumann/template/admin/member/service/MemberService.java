@@ -2,8 +2,8 @@ package org.keumann.template.admin.member.service;
 
 import lombok.RequiredArgsConstructor;
 import org.keumann.template.domain.Member;
+import org.keumann.template.config.MemberAccount;
 import org.keumann.template.repository.MemberRepository;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,7 +16,7 @@ import java.util.Optional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class MemberService implements UserDetailsService{
+public class MemberService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
 
@@ -37,10 +37,7 @@ public class MemberService implements UserDetailsService{
         Member member = memberRepository.findByEmail(email)
                 .orElseThrow(() -> new EntityNotFoundException(email));
 
-        return User.builder()
-                .username(member.getEmail())
-                .password(member.getPassword())
-                .roles(member.getRole().toString())
-                .build();
+        return new MemberAccount(member);
     }
+
 }

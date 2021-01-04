@@ -10,7 +10,6 @@ import javax.persistence.*;
 @Table(name="member")
 @Getter
 @ToString
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Member extends BaseEntity{
@@ -31,6 +30,16 @@ public class Member extends BaseEntity{
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    @Builder
+    public Member(String name, String email, String password, String address, Role role) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.address = address;
+        this.role = role;
+    }
+
     public static Member createAdmin(MemberFormDto memberFormDto) {
         return Member.builder()
                 .name(memberFormDto.getName())

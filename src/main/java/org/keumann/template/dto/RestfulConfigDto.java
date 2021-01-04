@@ -7,7 +7,7 @@ import lombok.ToString;
 @ToString
 public class RestfulConfigDto {
 
-    private int  readTimeout;
+    private int readTimeout;
 
     private int connectTimeout;
 

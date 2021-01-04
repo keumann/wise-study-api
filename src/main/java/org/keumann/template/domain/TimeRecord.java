@@ -1,16 +1,15 @@
 package org.keumann.template.domain;
 
 import lombok.*;
-import org.keumann.template.constant.Day;
 
 import javax.persistence.*;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 
 @Entity
 @Table(name="time_record")
 @Getter
 @ToString
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class TimeRecord extends BaseEntity{
@@ -22,7 +21,9 @@ public class TimeRecord extends BaseEntity{
 
     private LocalDate studyDate;
 
-    private Day day;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "day")
+    private DayOfWeek day;
 
     private Long seconds;
 
@@ -34,4 +35,12 @@ public class TimeRecord extends BaseEntity{
     @JoinColumn(name = "member_id")
     private Member member;
 
+    @Builder
+    public TimeRecord(LocalDate studyDate, DayOfWeek day, Long seconds, StudyType studyType, Member member) {
+        this.studyDate = studyDate;
+        this.day = day;
+        this.seconds = seconds;
+        this.studyType = studyType;
+        this.member = member;
+    }
 }

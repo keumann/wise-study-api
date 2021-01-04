@@ -13,7 +13,7 @@ import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
 
-@Configuration
+//@Configuration
 @EnableConfigurationProperties(RestfulProperties.class)
 public class RestfulConfig {
 

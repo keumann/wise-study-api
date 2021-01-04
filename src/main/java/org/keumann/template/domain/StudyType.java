@@ -24,4 +24,9 @@ public class StudyType  extends BaseEntity{
     @JoinColumn(name = "member_id")
     private Member member;
 
+    @Builder
+    public StudyType(String name, Member member) {
+        this.name = name;
+        this.member = member;
+    }
 }

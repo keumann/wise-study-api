@@ -5,7 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@Table(name="time_record")
+@Table(name="wise_saying")
 @Getter
 @ToString
 @Builder
@@ -14,8 +14,8 @@ import javax.persistence.*;
 public class WiseSaying extends BaseEntity{
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "wise_saying_id")
-    @GeneratedValue
     private Long id;
 
     @Lob

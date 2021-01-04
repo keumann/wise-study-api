@@ -1,7 +1,5 @@
 package org.keumann.template;
 
-import org.keumann.template.constant.Role;
-import org.keumann.template.domain.Member;
 import org.keumann.template.repository.MemberRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -18,15 +16,15 @@ public class Application {
     @Bean
     public CommandLineRunner commandLineRunner(MemberRepository memberRepository) {
         return args -> {
-            Member member = Member.builder()
-                    .email("admin@co.kr")
-                    .password("1111")
-                    .address("test")
-                    .name("admin")
-                    .role(Role.ADMIN)
-                    .build();
-
-            memberRepository.save(member);
+//            Member member = Member.builder()
+//                    .email("admin@co.kr")
+//                    .password("1111")
+//                    .address("test")
+//                    .name("admin")
+//                    .role(Role.ADMIN)
+//                    .build();
+//
+//            memberRepository.save(member);
         };
     }
 

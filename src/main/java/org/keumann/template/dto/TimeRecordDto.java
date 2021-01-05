@@ -16,4 +16,12 @@ public class TimeRecordDto {
         private Long seconds;
     }
 
+    @Getter @Setter
+    public static class DetailResponse {
+        private Long id;
+        private String studyDate;
+        private Long seconds;
+        private String StudyTypeName;
+    }
+
 }

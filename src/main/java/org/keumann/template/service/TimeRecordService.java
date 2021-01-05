@@ -8,8 +8,10 @@ import org.keumann.template.domain.TimeRecord;
 import org.keumann.template.dto.TimeRecordDto;
 import org.keumann.template.repository.MemberRepository;
 import org.keumann.template.repository.TimeRecordRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.time.LocalDate;
 
 @Service
@@ -19,6 +21,7 @@ public class TimeRecordService {
     private final TimeRecordRepository timeRecordRepository;
     private final StudyTypeService studyTypeService;
     private final MemberRepository memberRepository;
+    private final ModelMapper modelMapper;
 
     public Long register(TimeRecordDto.Register registerDto, Member member) {
 
@@ -44,5 +47,12 @@ public class TimeRecordService {
 
         TimeRecord savedTimeRecord = timeRecordRepository.save(timeRecord);
         return savedTimeRecord.getId();
+    }
+
+    public TimeRecordDto.DetailResponse findById(Long id) {
+        TimeRecord timeRecord = timeRecordRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(""));
+
+        return modelMapper.map(timeRecord, TimeRecordDto.DetailResponse.class);
     }
 }

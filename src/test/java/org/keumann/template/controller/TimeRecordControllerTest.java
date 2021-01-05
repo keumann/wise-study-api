@@ -9,8 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -35,6 +35,13 @@ class TimeRecordControllerTest {
         )
                 .andDo(print())
                 .andExpect(status().isCreated());
+    }
+
+    @Test
+    void detail() throws Exception {
+        mockMvc.perform(get("/api/time-record/1"))
+                .andDo(print())
+                .andExpect(status().isOk());
     }
 
 }

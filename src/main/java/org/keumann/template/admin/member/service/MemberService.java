@@ -6,6 +6,7 @@ import org.keumann.template.domain.MemberRole;
 import org.keumann.template.exception.BusinessException;
 import org.keumann.template.member.dto.MemberDto;
 import org.keumann.template.repository.MemberRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Optional;
 
 @Service
@@ -24,6 +26,7 @@ import java.util.Optional;
 public class MemberService implements UserDetailsService{
 
     private final MemberRepository memberRepository;
+    private final ModelMapper modelMapper;
 
     public Member saveMember(Member member){
         validateDuplicateMember(member);
@@ -63,8 +66,9 @@ public class MemberService implements UserDetailsService{
     private Member enrollKakaoMember(MemberDto memberDto){
         MemberRole memberRole = new MemberRole();
         memberRole.setRoleName("USER");
-        memberDto.setRoles(Arrays.asList(memberRole));
-        return memberRepository.save(MemberDto.of(memberDto));
+        memberDto.setRoles(Collections.singletonList(memberRole));
+        Member member = modelMapper.map(memberDto, Member.class);
+        return memberRepository.save(member);
     }
 
     public Member createMember(MemberDto memberDto) throws BusinessException{

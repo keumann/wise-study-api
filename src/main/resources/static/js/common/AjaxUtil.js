@@ -1,4 +1,4 @@
-let AjaxUtil = {
+const AjaxUtil = {
 
     sendPostAjax : function(url, param, callbackFn, errorCallbackFn, async){
 

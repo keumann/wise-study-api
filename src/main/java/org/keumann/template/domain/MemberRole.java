@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Table(name = "member_role")
-@EqualsAndHashCode(of = "")
+@EqualsAndHashCode(of = "rno")
 @ToString
 @Builder
 @AllArgsConstructor

@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.keumann.template.domain.WiseSaying;
 import org.keumann.template.repository.WiseSayingRepository;
 import org.keumann.template.saying.dto.WiseSayingDto;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -17,16 +18,17 @@ import javax.persistence.EntityNotFoundException;
 public class WiseSayingService {
 
     private final WiseSayingRepository wiseSayingRepository;
+    private final ModelMapper modelMapper;
 
     public WiseSayingDto getWiseSayingDto(Long id){
 
         if(id == null){
             return new WiseSayingDto();
-        } else{
-            WiseSaying wiseSaying = wiseSayingRepository.findById(id)
-                    .orElseThrow(EntityNotFoundException::new);
-            return WiseSayingDto.of(wiseSaying);
         }
+
+        WiseSaying wiseSaying = wiseSayingRepository.findById(id)
+                .orElseThrow(EntityNotFoundException::new);
+        return modelMapper.map(wiseSaying, WiseSayingDto.class);
 
     }
 

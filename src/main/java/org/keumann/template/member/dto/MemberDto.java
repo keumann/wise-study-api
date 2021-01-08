@@ -45,13 +45,4 @@ public class MemberDto {
 
     private List<MemberRole> roles;
 
-    private static ModelMapper modelMapper = new ModelMapper();
-
-    public static MemberDto of(Member member) {
-        return modelMapper.map(member, MemberDto.class);
-    }
-
-    public static Member of(MemberDto memberDto) {
-        return modelMapper.map(memberDto, Member.class);
-    }
 }

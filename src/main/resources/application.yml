@@ -45,3 +45,8 @@ restemplate:
   maxConnTotal: 100
   maxConnPerRoute: 5
 
+kakao:
+  client_id: 57de0cf835661036cca3e9671a47a85f
+  client_secret: Q1x38wqObZdkVIcaOVz50BBoLdO49RIG
+
+active.domain: http://localhost:8080

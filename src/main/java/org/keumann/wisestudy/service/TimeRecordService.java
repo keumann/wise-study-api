@@ -1,7 +1,6 @@
 package org.keumann.wisestudy.service;
 
 import lombok.RequiredArgsConstructor;
-import org.keumann.wisestudy.constant.Role;
 import org.keumann.wisestudy.domain.Member;
 import org.keumann.wisestudy.domain.StudyType;
 import org.keumann.wisestudy.domain.TimeRecord;
@@ -31,7 +30,6 @@ public class TimeRecordService {
                 .password("1111")
                 .address("test")
                 .name("admin")
-                .role(Role.ADMIN)
                 .build();
         memberRepository.save(tMember);
 
